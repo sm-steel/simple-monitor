@@ -18,14 +18,20 @@ Lightweight TCP port monitoring service for remote hosts. Checks configured serv
 
 ### With Docker Compose (recommended)
 
-1. Copy the example config and fill in your values:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-username/simple-monitor.git
+   cd simple-monitor
+   ```
+
+2. Copy the example config and fill in your values:
    ```sh
    cp config.example.yaml config.yaml
    ```
 
-2. Edit `config.yaml` — at minimum set `telegram.token`, `telegram.chat_id`, and your machines/services.
+3. Edit `config.yaml` — at minimum set `telegram.token`, `telegram.chat_id`, and your machines/services.
 
-3. Start:
+4. Start:
    ```sh
    docker compose up -d
    ```
@@ -37,6 +43,8 @@ The database URL is pre-configured in `docker-compose.yml`. To use an external d
 Requirements: Python 3.12+, PostgreSQL, [uv](https://github.com/astral-sh/uv)
 
 ```sh
+git clone https://github.com/your-username/simple-monitor.git
+cd simple-monitor
 uv sync
 DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/monitor \
   uv run src/main.py config.yaml
