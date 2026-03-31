@@ -1,0 +1,38 @@
+settings:
+  interval: 60            # default check interval in seconds
+  attempts: 3             # consecutive failures before alerting
+  log_level: INFO         # DEBUG | INFO | WARNING | ERROR
+  notification_delay: 300     # seconds between repeat notifications for the same service
+  notification_retention: 3600 # seconds before sent notifications are auto-deleted from Telegram
+  quiet_windows:          # no notifications will be sent during these time ranges
+    - "23:00-07:00"       # overnight (crosses midnight)
+    - "12:00-13:00"       # lunch break
+  # db_url: "postgresql+asyncpg://user:pass@localhost:5432/monitor"
+  # Prefer setting DATABASE_URL env var over hardcoding credentials here.
+  telegram:
+    token: "123123:AAAAAAAAAAAAAAAA"
+    chat_id: "-123"
+    proxy_url: "http://host:3128"  # optional, supports http/https/socks5
+
+monitor:
+  - machine:
+    name: Web Server
+    ip: 192.168.1.10
+    interval: 30      # override global interval for this machine
+    attempts: 2       # override global attempts for this machine
+    services:
+      - ports: [80, 443]
+        name: "nginx"
+      - ports: [5432]
+        name: "Postgres DB"
+        interval: 60  # override per-service
+
+  - machine:
+    name: Bastion
+    ip: 192.168.1.11
+    services:
+      - ports: [22]
+        name: "SSH"
+      - ports: [81]
+        name: "Foo"
+        attempts: 1   # override per-service
