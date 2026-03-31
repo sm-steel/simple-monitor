@@ -20,7 +20,7 @@ Lightweight TCP port monitoring service for remote hosts. Checks configured serv
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/simple-monitor.git
+   git clone https://github.com/sm-steel/simple-monitor.git
    cd simple-monitor
    ```
 
@@ -43,7 +43,7 @@ The database URL is pre-configured in `docker-compose.yml`. To use an external d
 Requirements: Python 3.12+, PostgreSQL, [uv](https://github.com/astral-sh/uv)
 
 ```sh
-git clone https://github.com/your-username/simple-monitor.git
+git clone https://github.com/sm-steel/simple-monitor.git
 cd simple-monitor
 uv sync
 DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/monitor \
