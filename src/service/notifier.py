@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Optional
 
 from loguru import logger
@@ -182,16 +182,6 @@ async def _send_system_text(
     if is_quiet_time(global_settings.quiet_windows):
         logger.debug(f"Skipping system notification (quiet window): {text!r}")
         return
-
-    rows = await store.load(_SYSTEM_TARGET)
-    if rows:
-        last_sent = max(r.sent_at for r in rows)
-        if last_sent.tzinfo is None:
-            last_sent = last_sent.replace(tzinfo=timezone.utc)
-        elapsed = (datetime.now(timezone.utc) - last_sent).total_seconds()
-        if elapsed < global_settings.notification_delay:
-            logger.debug(f"Skipping system notification (delay not elapsed): {text!r}")
-            return
 
     try:
         bot = _build_bot(settings)
