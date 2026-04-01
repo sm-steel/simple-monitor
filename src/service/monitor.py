@@ -45,7 +45,7 @@ async def monitor_service(
 
     while True:
         is_up = await check_service(target)
-        was_down = state.consecutive_failures > 0
+        was_down = state.last_notified_at is not None
         down_since = state.first_failure_at
         state = update_state(state, is_up)
         await stores.state.save(target, state)
